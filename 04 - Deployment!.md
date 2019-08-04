@@ -1,37 +1,60 @@
-# 3. Django 관리자
+# 4. 배포하기
 
-- 장고의 관리자 화면을 한국어로 변경하기 위해서 아래와 같이 `settings.py` 수정
-```python
-#mysite/settings.py ln 107]
+> - Local 환경에서 벗어나 웹사이트를 배포하는 과정은 다음 절차를 따라서 진행
+> 1. Local 환경에서 블로그 개발 및 테스트 수행
+> 2. [Git-hub](https://github.com)에 코드 호스팅 (생략 가능)
+> 3. [PythonAnywhere](https://www.pythonanywhere.com)에서 제공하는 서버에 소규모 어플리케이션 배포
 
-LANGUAGE_CODE = 'ko'
-```
-
-- 웹 서버를 실행하려면 `djangogirls` 가상환경으로 들어가 아래와 같이 콘솔 명령어 실행:
+## 1. Git 설정
+- Git이란  "버전 관리 시스템(version control system)"으로 파일 변경 추적이 가능
+- GitHub Desktop이라는 프로그램을 활용하면 Git을 손쉽게 관리 가능
+- 하지만 윈도우 환경이 아니거나, 로우레벨에서 Git을 활용하려면 별도로 Git만 설치해서도 운용이 가능
+- 사용 방법은 여러 매체에 나와 있지만 아래와 같이 간단하게 설치과정 설명 가능
+- Git Repository 설치를 희망하는 디렉터리에서 아래 명령어 실행
 ```shell
-~Django-Girls> djangogirls\Scripts\activate
-(djangogirls) ~Django-Girls> python manage.py runserver
-
-Performing system checks...
-
-System check identified no issues (0 silenced).
-July 30, 2019 - 01:30:24
-Django version 2.0.13, using settings 'mysite.settings'
-Starting development server at http://127.0.0.1:8000/
-Quit the server with CTRL-BREAK.
+$ git init
+Initialized empty Git repository in ~/djangogirls/.git/
+$ git config --global user.name "Your Name"
+$ git config --global user.email you@example.com
 ```
-- 실행하게 되면 아래와 같이 서버가 작동되는 것을 확인
-
-- 서버는 http://127.0.0.1:8000/ 에서 확인이 가능하며, 관리자 페이지는 http://127.0.0.1:8000/admin/ 에서 확인 가능
-- 단, superuser를 생성해야 로그인이 가능한데, 이는 가상환경에서 아래 커맨드를 입력하여 생성 가능
+- 모든 변경사항을 추적할 필요가 없을 때, 특정 파일들의 변경사항은 무시하고 싶을 때 `.gitignore` 파일을 생성하여 내용 추가
+- 본 경우에는 `db.sqlite` 로컬 데이터베이스는 추적 대상에서 제외
+```git
+*.pyc
+*~
+__pycache__
+myvenv
+db.sqlite3
+/static
+.DS_Store
+```
+- 변경 사항을 업로드 하기 위해서는 `add`(변경할 파일 확정) > `commit`(저장소에 추가) > `push`(외부 저장소에 전달) 과정을 거침
+- `add`와 `commit`은 다음과 같이 실행;
 ```shell
-(djangogirls) ~Django-Girls> python manage.py createsuperuser
-Username (leave blank to use 'pablo'): !@#$%^&*
-Email address: !@#$$%^&@gmail.com
-Password:
-Password (again):
-Superuser created successfully.
+$ git add --all .
+$ git commit -m "My Django Girls app, first commit"
+
+ [...]
+ 13 files changed, 200 insertions(+)
+ create mode 100644 .gitignore
+ [...]
+ create mode 100644 mysite/wsgi.py
+ ```
+
+- `push`를 위해서는 먼저 저장소를 연결해야 하며, 일반적으로 Git-Hub Repository를 활용
+- [GitHub](https://github.com) 가입 및 repository 생성은 크게 어렵지 않으니 사이트에 접속하여 계정 생성 및 저장소를 생성하여 아래와 같이 `git remote add origin` 커맨드로 지정
+```shell
+$ git remote add origin https://github.com/<your-github-username>/my-first-blog.git
+$ git push -u origin master
+
+Username for 'https://github.com': hjwp
+Password for 'https://hjwp@github.com':
+Counting objects: 6, done.
+Writing objects: 100% (6/6), 200 bytes | 0 bytes/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To https://github.com/hjwp/my-first-blog.git
+ * [new branch]      master -> master
+Branch master set up to track remote branch master from origin.
 ```
-- 위에서 지정한 superuser로 접속하게 되면 아래와 같은 화면에 접속이 가능
-![](md_src/django_admin.png)
-- `Posts`의 `Add`란에 들어가서 글을 작성 가능
+
+## 2. PythonAnywhere에 블로그 설정하기
