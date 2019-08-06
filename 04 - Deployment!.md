@@ -59,3 +59,41 @@ Branch master set up to track remote branch master from origin.
 
 ## 2. PythonAnywhere에 블로그 설정하기
 
+- PythonAnywhere는 인터넷 상에 무료로 소규모 서버 서비스를 제공하고 있음
+- 메인 대시보드에서 "콘솔(Consoles)"탭에 들어가면 "Start a New Console"란을 확인할 수 있는데, 본 케이스에서는 Bash 콘솔을 생성
+- 기본적으로 git이나 python은 깔려있는 상태이며, PythonAnywhere에서 블로그를 배포하기 위해 몇가지 해야 할 작업들이 있음
+> a. GitHub와 PythonAnywhere 연동  
+> b. Python 가상환경 생성  
+> c. 데이터베이스 생성  
+> d. Web App 배포  
+> e. 가상환경 설정하기  
+> f. WSGI 설정하기
+
+### a. GitHub와 PythonAnywhere 연동  
+- Bash 커맨드를 안다면 손쉽게 GitHub와 PythonAnywhere간에 연동이 가능
+- 아래 커맨드에서 `<your-github-username>`에 본인 아이디를 추가하는 것 만으로 저장소를 복제해 옴
+```shell
+$ git clone https://github.com/<your-github-username>/my-first-blog.git
+```
+### b. Python 가상환경 생성 
+- Bash에서도 `00-Environment Set-up`과 동일한 방식으로 가상환경 생성이 가능
+- 다만 Window와 커맨드가 일부 상이할 수 있음
+```bash
+$ cd blog
+
+$ virtualenv --python=python3.7 myenv
+Running virtualenv with interpreter /usr/bin/python3.6
+[...]
+Installing setuptools, pip...done.
+
+$ source myvenv/bin/activate
+
+(myvenv) $  pip install django~=2.0
+Collecting django
+[...]
+Successfully installed django-2.2.4
+```
+### c. 데이터베이스 생성  
+### d. Web App 배포  
+### e. 가상환경 설정하기  
+### f. WSGI 설정하기
