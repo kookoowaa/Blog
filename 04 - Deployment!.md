@@ -93,7 +93,17 @@ Collecting django
 [...]
 Successfully installed django-2.2.4
 ```
-### c. 데이터베이스 생성  
+### c. 데이터베이스 생성 
+- `01 - Project Initiate`에서 데이터베이스를 설정했던 것처럼, 서버에서도 데이터베이스를 초기화 해 줄 필요가 있음
+- `migrate` 와 `createsuperuser` 커맨드 실행
+```bash
+(mvenv) $ python manage.py migrate
+Operations to perform:
+[...]
+  Applying sessions.0001_initial... OK
+(mvenv) $ python manage.py createsuperuser
+```
+- 이제부터는 PythonAnywhere에서 Web App 배포를 위한 설정만 따라가면 됨
 ### d. Web App 배포  
 ### e. 가상환경 설정하기  
 ### f. WSGI 설정하기
