@@ -105,5 +105,31 @@ Operations to perform:
 ```
 - 이제부터는 PythonAnywhere에서 Web App 배포를 위한 설정만 따라가면 됨
 ### d. Web App 배포  
+- 설정이 끝난 후에는 PythonAnywhere에서 **Web -> Add a new web app**을 클릭하여 web app 배포 가능
+- 무료 계정에서는 `<your_domain>.pythonanywhere.com`을 도메인명으로 확정하고, **manual configuration -> Python 3.x**를 선택하여 web app 마법사를 종료
 ### e. 가상환경 설정하기  
+- Web app 배포가 끝나면 바로 설정 페이지로 이동됨
+- 스크롤 다운 하다보면 Virtualenv 관련 섹션이 있고, 여기에서 `Enter the path to a virtualenv`를 클릭하여 가상환경이 설치된 경로를 설정
+- 위의 과정을 따라왔다면 `/home/<your_username>/first-blog/myvenv/`에 가상환경이 설정되어 있을 것
 ### f. WSGI 설정하기
+- Django는 WSGI 프로토콜을 사용해 작동하며, 파이썬을 이용한 웹사이트를 서비스하기 위한 표준으로 PythonAnywhere에서도 지원
+- WSGI 설정을 해 주어야만 Django로 만든 블로그를 PythonAnywhere가 인식할 수 있음
+- 중간에 `WSGI configuration file:`와  다음과 같은 링크를 클릭하면 `/var/www/<your_username>_pythonanywhere_com_wsgi.py` 에디터와 WSGI의 default 설정값을 확인할 수 있음
+- 블로그를 운영하기 위해 필요한 내용은 아래와 같으며, 기존의 설정값은 모두 삭제하고 저장:
+```python
+import os
+import sys
+
+path = '/home/<your-PythonAnywhere-username>/my-first-blog'  # PythonAnywhere 계정으로 바꾸세요.
+if path not in sys.path:
+    sys.path.append(path)
+
+os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
+
+from django.core.wsgi import get_wsgi_application
+from django.contrib.staticfiles.handlers import StaticFilesHandler
+application = StaticFilesHandler(get_wsgi_application())
+```
+- 이 파일은 Django로 만든 블로그가 정상작동하도록 PYthonAnywhere에게 web app의 위치와 Django 설정 파일명을 알려줌
+
+> - 이제 상단의 Relaod 버튼을 누르고 `http://<your_username>.pythonanywhere.com/`에 접속하면 web app 화면을 확인 가능
