@@ -1,4 +1,4 @@
-# 4. Url 설정하기
+# 5. Url 설정하기
 
 > - Django의 URL은 `urls.py`에서 정의한 방식대로 url을 찾아감
 > - `urlpatterns`에서 정의한 내용을 토대로 모든 URL을 view와 대조해서 찾아냄

@@ -1,4 +1,4 @@
-# 4. View 만들기
+# 6. View 만들기
 > - View는 `blog/views.py` 파일안에 위치해 있으며, Python 함수로 추가 가능
 
 - `blog/views.py`를 열어보면, 코드 한줄로 구성되어 있음
