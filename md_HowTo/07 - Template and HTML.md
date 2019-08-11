@@ -1,4 +1,4 @@
-# 5. 템플릿과 정적 HTML
+# 7. 템플릿과 정적 HTML
 
 - Django는 기본적으로 HTML을 템플릿으로 사용
 - HTML은 **Hyper Text Markup Language**의 약자로 문서를 표시해 주는 방식을 정리해 놓은 언어임
@@ -28,3 +28,4 @@
     </body>
 </html>
 ```
+- 위와 같이 웹사이트를 생성 후 Gihub에 Push, PythonAnywhere에서 Pull하면 변경사항을 확인 가능
