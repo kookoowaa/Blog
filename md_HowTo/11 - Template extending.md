@@ -29,7 +29,6 @@ blog
         <div class="page-header">
             <h1><a href="/">Django Girls Blog</a></h1>
         </div>
-
         <div class="content container">
             <div class="row">
                 <div class="col-md-8">
@@ -49,18 +48,64 @@ blog
 </html>
 ```
 ```django
-<!-- <body> 변경-->
-<body>
-    <div class="page-header">
-        <h1><a href="/">Django Girls Blog</a></h1>
-    </div>
-    <div class="content container">
-        <div class="row">
-            <div class="col-md-8">
-            {% block content %}
-            {% endblock %}
+<!-- <body> 변경 후 -->
+{% load static %}
+<html>
+    <head>
+        <title>Django Girls blog</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    </head>
+    <body>
+        <div class="page-header">
+            <h1><a href="/">Django Girls Blog</a></h1>
+        </div>
+        <div class="content container">
+            <div class="row">
+                <div class="col-md-8">
+                {% block content %}
+                {% endblock %}
+                </div>
             </div>
         </div>
+    </body>
+</html>
+```
+- 위와 같이 `content`라는 이름의 `{% block %}`으로 이루어진 기본 템플릿 생성 완료
+- 템플릿 태그 `{% block %}`로 HTML 내에 공간을 생성하고, `base.html`을 확장하여 다른 템플릿에도 동일하게 복제 활용
+
+## 2. 템플릿 확장하기
+
+- 다시 `post_list.html`로 돌아가 `{% block %}`에 들어갈 내용만 남기고, 나머지는 삭제
+- 남길 내용은 `{% for post in posts %}`부터 `{% endfor %}`까지임
+```django
+{% for post in posts %}
+    <div class="post">
+        <div class="date">
+            {{ post.published_date }}
+        </div>
+        <h1><a href="">{{ post.title }}</a></h1>
+        <p>{{ post.text|linebreaksbr }}</p>
     </div>
-</body>
+{% endfor %}
+```
+- 여기에 `base.html`의 템플릿을 연결하는 작업만 추가하면 됨
+- 템플릿을 연결하는 방법은 `{% block %}` 템플릿과 `{% extends %}` 확장 태그를 추가하면 됨
+```django
+<!-- post_list.html -->
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    {% for post in posts %}
+        <div class="post">
+            <div class="date">
+                {{ post.published_date }}
+            </div>
+            <h1><a href="">{{ post.title }}</a></h1>
+            <p>{{ post.text|linebreaksbr }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
 ```
