@@ -79,6 +79,25 @@ def post_detail(request, pk):
     return render(request, 'blog/post_detail.html', {'post':post})
 ```
 ## 4. 템플릿 만들기
-- 마지막으로 
+- 마지막으로 `post_detail`뷰에서 수집한 내용을 표시해 줄 `post_detail.html` 템플릿이 필요
+- `post_detail.html`은 다시 한번 `base.html`을 확장하고, `content block`만 아래와 같이 변경:
+```django
+<!-- blog/templates/blog/post_detail.html -->
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <div class="post">
+        {% if post.published_date %}
+            <div class="date">
+                {{ post.published_date }}
+            </div>
+        {% endif %}
+        <h1>{{ post.title }}</h1>
+        <p>{{ post.text|linebreaksbr }}</p>
+    </div>
+{% endblock %}
+```
+- 중간에 if문을 활용하여 published_date가 있는 경우만 이를 반환
 
 ## 5. 배포하기
+- 이상 내용을 Git에 저장 후 PythonAnywhere에서 Pull하여 배포
