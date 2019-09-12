@@ -1,6 +1,7 @@
 # 13. 블로그 개선하기
 - djangogirl tutorial 이후에 추가적으로 django를 활용하여 블로그를 개선할 여지가 있는 기능
 - https://tutorial-extensions.djangogirls.org/ko/ 참조
+
 ## 1. 미리보기로 글 저장하기
 
 ## 2. 게시되지 않은 블로그 글 목록 페이지 만들기
