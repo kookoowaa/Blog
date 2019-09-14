@@ -9,8 +9,9 @@
 post.published_date = timezone.now()
 ```
 
-
 ## 2. 게시되지 않은 블로그 글 목록 페이지 만들기
+- `08 - Django ORM(QuerySet)`에서는 블로그 게시물만 보여주는 `post_list`를 만들어 보았고, 이번에는 임시저장 기능을 구현할 예정
+
 
 ## 3. 게시 버튼 추가하기
 
