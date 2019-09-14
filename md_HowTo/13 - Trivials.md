@@ -3,6 +3,12 @@
 - https://tutorial-extensions.djangogirls.org/ko/ 참조
 
 ## 1. 미리보기로 글 저장하기
+- 새글을 작성하면, 글 작성과 동시에 발행이 완료
+- 미리보기로 초안을 확인하고 저장하려면 `blog/views.py`파일에서 `post_new`와 `post_edit`메소드의 다음 줄을 삭제
+```python
+post.published_date = timezone.now()
+```
+
 
 ## 2. 게시되지 않은 블로그 글 목록 페이지 만들기
 
